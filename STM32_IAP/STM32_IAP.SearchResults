@@ -1,0 +1,3 @@
+---- 0x3800 Matches (2 in 1 files) ----
+stm32f10x.h (core_cm3):#define SPI2_BASE             (APB1PERIPH_BASE + 0x3800)
+stm32f10x.h (core_cm3):#define USART1_BASE           (APB2PERIPH_BASE + 0x3800)
