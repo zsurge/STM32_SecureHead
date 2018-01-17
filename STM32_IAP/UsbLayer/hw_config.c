@@ -48,10 +48,10 @@ void USB_LP_CAN1_RX0_IRQHandler(void)
 *******************************************************************************/
 void Set_USBClock(void)
 {
-  SystemInit();	  
-  
-  RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO, ENABLE);
-  RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA | RCC_APB2Periph_GPIOB, ENABLE);
+//  SystemInit();	  
+//  
+//  RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO, ENABLE);
+//  RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA | RCC_APB2Periph_GPIOB, ENABLE);
 
 
   /* Select USBCLK source */

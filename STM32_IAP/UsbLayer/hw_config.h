@@ -39,6 +39,9 @@
 /* Exported macro ------------------------------------------------------------*/
 /* Exported define -----------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
+
+
+
 void UsbAllInit(void);
 void Set_USBClock(void);
 void Enter_LowPowerMode(void);
