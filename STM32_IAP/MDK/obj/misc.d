@@ -1,10 +1,10 @@
 .\obj\misc.o: ..\lib\src\misc.c
 .\obj\misc.o: ..\lib\inc\misc.h
 .\obj\misc.o: ..\core_cm3\stm32f10x.h
-.\obj\misc.o: D:\Keil\ARM\CMSIS\Include\core_cm3.h
-.\obj\misc.o: D:\Keil\ARM\ARMCC\bin\..\include\stdint.h
-.\obj\misc.o: D:\Keil\ARM\CMSIS\Include\core_cmInstr.h
-.\obj\misc.o: D:\Keil\ARM\CMSIS\Include\core_cmFunc.h
+.\obj\misc.o: E:\MDK_KEIL4.74\ARM\CMSIS\Include\core_cm3.h
+.\obj\misc.o: E:\MDK_KEIL4.74\ARM\ARMCC\bin\..\include\stdint.h
+.\obj\misc.o: E:\MDK_KEIL4.74\ARM\CMSIS\Include\core_cmInstr.h
+.\obj\misc.o: E:\MDK_KEIL4.74\ARM\CMSIS\Include\core_cmFunc.h
 .\obj\misc.o: ..\core_cm3\system_stm32f10x.h
 .\obj\misc.o: ..\user\stm32f10x_conf.h
 .\obj\misc.o: ..\lib\inc\stm32f10x_bkp.h

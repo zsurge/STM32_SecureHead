@@ -436,10 +436,10 @@ void IDT_PropogateKeys(uint8_t *cryptoReg,          // crypto register
 #if(0)
         if (debug) {
             if (outFile)
-                fprintf(fp, "EC = %02X%02X%02X ",
+//                fprintf(fp, "EC = %02X%02X%02X ",
                         cryptoReg[5] & 0x1F, cryptoReg[6], cryptoReg[7]);
             else
-                printf("EC = %02X%02X%02X ",
+//                printf("EC = %02X%02X%02X ",
                        cryptoReg[5] & 0x1F, cryptoReg[6], cryptoReg[7]);
         }
 #endif // DBG

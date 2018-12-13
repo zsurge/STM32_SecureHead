@@ -29,7 +29,7 @@
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __USB_PROP_H
 #define __USB_PROP_H
-
+#include "app.h"
 /* Includes ------------------------------------------------------------------*/
 /* Exported types ------------------------------------------------------------*/
 typedef enum _HID_REQUESTS
@@ -78,6 +78,10 @@ uint8_t *CustomHID_GetHIDDescriptor(uint16_t Length);
 
 #define REPORT_DESCRIPTOR                  0x22
 
+void Custom_Init(void);
+extern u8 PF_Buffer[55];
+
+extern uint8_t IDTUSB_Reviceflag,IDTUSB_SendBuff[idte_datalen],usbd_sendlen,sendcount;
 #endif /* __USB_PROP_H */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

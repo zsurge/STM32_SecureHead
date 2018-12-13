@@ -19,11 +19,11 @@ static void IntToUnicode (uint32_t value , uint8_t *pbuf , uint8_t len);
 void UsbAllInit(void)
 {
 
-  Set_USBClock();
-  USB_Cable_Config(ENABLE);  
+//  Set_USBClock();
+//  USB_Cable_Config(ENABLE);  
 
-  USB_Interrupts_Config();
-  USB_Init();  
+//  USB_Interrupts_Config();
+//  USB_Init();  
 }
 
 /*******************************************************************************
@@ -34,10 +34,10 @@ void UsbAllInit(void)
 * Output         : None
 * Return         : None
 *******************************************************************************/
-void USB_LP_CAN1_RX0_IRQHandler(void)
-{
-  USB_Istr();
-}
+//void USB_LP_CAN1_RX0_IRQHandler(void)
+//{
+//  USB_Istr();
+//}
 
 /*******************************************************************************
 * Function Name  : Set_USBClock
@@ -109,13 +109,25 @@ void USB_Interrupts_Config(void)
   NVIC_InitTypeDef NVIC_InitStructure; 
   
   /* 2 bit for pre-emption priority, 2 bits for subpriority */
-  NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);  
+  NVIC_PriorityGroupConfig(NVIC_PriorityGroup_1);  
   
   NVIC_InitStructure.NVIC_IRQChannel = USB_LP_CAN1_RX0_IRQn;
   NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
-  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 1;
+  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
   NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
   NVIC_Init(&NVIC_InitStructure);
+	
+//	/* Enable the USB HP interrupt */
+//  NVIC_InitStructure.NVIC_IRQChannel = USB_HP_CAN1_TX_IRQn;
+//  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
+//  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
+//  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+//  NVIC_Init(&NVIC_InitStructure);
+  /* Enable the USB Wake-up interrupt */
+  NVIC_InitStructure.NVIC_IRQChannel = USBWakeUp_IRQn;
+  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
+  NVIC_Init(&NVIC_InitStructure); 
   
 }
 

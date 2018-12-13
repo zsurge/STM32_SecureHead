@@ -1,5 +1,0 @@
----- uart_puts Matches (4 in 3 files) ----
-dev_uart.c (dev):void uart_puts(char *s)
-dev_uart.h (dev):void uart_puts(char *s);
-main.c (user):	uart_puts("APP Start...\r\n");
-main.c (user)://	uart_puts(" main loop...\r\n");

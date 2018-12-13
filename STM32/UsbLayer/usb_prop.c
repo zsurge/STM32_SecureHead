@@ -34,8 +34,12 @@
 #include "usb_prop.h"
 #include "usb_desc.h"
 #include "usb_pwr.h"
-
-
+#include "usb_prop_hid.h"
+#include "usb_endp.h"
+#include "app.h"
+extern u8 *usbdata_Request(void);
+extern u8 *My_Data_Request(u16 length);
+//extern char usb_reviceflag;
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
@@ -43,6 +47,9 @@
 uint32_t ProtocolValue;
 __IO uint8_t EXTI_Enable;
 
+uint8_t IDTUSB_Reviceflag=0xac,IDTUSB_SendBuff[idte_datalen]={0x00},usbd_sendlen=0,sendcount=0;
+
+u8 PF_Buffer[55]={0};
 /* -------------------------------------------------------------------------- */
 /*  Structures initializations */
 /* -------------------------------------------------------------------------- */
@@ -53,7 +60,7 @@ DEVICE Device_Table =
     1
   };
 
-DEVICE_PROP Device_Property =
+DEVICE_PROP Device_Property_Custom =
   {
     CustomHID_init,
     CustomHID_Reset,
@@ -68,7 +75,7 @@ DEVICE_PROP Device_Property =
     0,
     0x40 /*MAX PACKET SIZE*/
   };
-USER_STANDARD_REQUESTS User_Standard_Requests =
+USER_STANDARD_REQUESTS User_Standard_Requests_Custom =
   {
     CustomHID_GetConfiguration,
     CustomHID_SetConfiguration,
@@ -81,13 +88,13 @@ USER_STANDARD_REQUESTS User_Standard_Requests =
     CustomHID_SetDeviceAddress
   };
 
-ONE_DESCRIPTOR Device_Descriptor =
+ONE_DESCRIPTOR Device_Descriptor_Custom =
   {
     (uint8_t*)CustomHID_DeviceDescriptor,
     CUSTOMHID_SIZ_DEVICE_DESC
   };
 
-ONE_DESCRIPTOR Config_Descriptor =
+ONE_DESCRIPTOR Config_Descriptor_Custom =
   {
     (uint8_t*)CustomHID_ConfigDescriptor,
     CUSTOMHID_SIZ_CONFIG_DESC
@@ -105,7 +112,7 @@ ONE_DESCRIPTOR CustomHID_Hid_Descriptor =
     CUSTOMHID_SIZ_HID_DESC
   };
 
-ONE_DESCRIPTOR String_Descriptor[4] =
+ONE_DESCRIPTOR String_Descriptor_Custom[4] =
   {
     {(uint8_t*)CustomHID_StringLangID, CUSTOMHID_SIZ_STRING_LANGID},
     {(uint8_t*)CustomHID_StringVendor, CUSTOMHID_SIZ_STRING_VENDOR},
@@ -118,6 +125,14 @@ ONE_DESCRIPTOR String_Descriptor[4] =
 /* Extern function prototypes ------------------------------------------------*/
 /* Private functions ---------------------------------------------------------*/
 
+	
+void Custom_Init(void)
+{
+	Device_Property=Device_Property_Custom;
+  	User_Standard_Requests=User_Standard_Requests_Custom;
+	
+	
+}
 /*******************************************************************************
 * Function Name  : CustomHID_init.
 * Description    : Custom HID init routine.
@@ -168,24 +183,44 @@ void CustomHID_Reset(void)
 #else 
   SetBTABLE(BTABLE_ADDRESS);
 
-  /* Initialize Endpoint 0 */
+/* Initialize Endpoint 0 */
   SetEPType(ENDP0, EP_CONTROL);
-  SetEPTxStatus(ENDP0, EP_TX_STALL);
+  SetEPTxStatus(ENDP0, /*EP_TX_STALL*/EP_TX_VALID);//原函数为  SetEPTxStatus(ENDP0, EP_TX_STALL);/
+	SetEPRxStatus(ENDP0, /*EP_TX_STALL*/EP_RX_VALID);//新添加-18-06-12
+//	SetEPTxStatus(ENDP0, EP_RX_STALL);//--新添加-18-06-05
   SetEPRxAddr(ENDP0, ENDP0_RXADDR);
   SetEPTxAddr(ENDP0, ENDP0_TXADDR);
   Clear_Status_Out(ENDP0);
   SetEPRxCount(ENDP0, Device_Property.MaxPacketSize);
   SetEPRxValid(ENDP0);
-
+	
+	SetEPTxCount(ENDP0, Device_Property.MaxPacketSize);//-----新添加18-06-12
+  SetEPTxValid(ENDP0);//-----新添加18-06-12
 
   /* Initialize Endpoint 1 */
   SetEPType(ENDP1, EP_INTERRUPT);
   SetEPTxAddr(ENDP1, ENDP1_TXADDR);
-  SetEPRxAddr(ENDP1, ENDP1_RXADDR);
-  SetEPTxCount(ENDP1, PACKAGE_SIZE);	//ONE
-  SetEPRxCount(ENDP1, PACKAGE_SIZE);	//
-  SetEPRxStatus(ENDP1, EP_RX_VALID);
+  SetEPTxCount(ENDP1, 0x40);
+  SetEPRxStatus(ENDP1, EP_RX_DIS);
   SetEPTxStatus(ENDP1, EP_TX_NAK);
+//  /* Initialize Endpoint 0 */
+//  SetEPType(ENDP0, EP_CONTROL);
+//  SetEPTxStatus(ENDP0, EP_TX_STALL);
+//  SetEPRxAddr(ENDP0, ENDP0_RXADDR);
+//  SetEPTxAddr(ENDP0, ENDP0_TXADDR);
+//  Clear_Status_Out(ENDP0);
+//  SetEPRxCount(ENDP0, Device_Property.MaxPacketSize);
+//  SetEPRxValid(ENDP0);
+
+
+//  /* Initialize Endpoint 1 */
+//  SetEPType(ENDP1, EP_INTERRUPT);
+//  SetEPTxAddr(ENDP1, ENDP1_TXADDR);
+//  SetEPRxAddr(ENDP1, ENDP1_RXADDR);
+//  SetEPTxCount(ENDP1, PACKAGE_SIZE);	//ONE
+//  SetEPRxCount(ENDP1, PACKAGE_SIZE);	//
+//  SetEPRxStatus(ENDP1, EP_RX_VALID);
+//  SetEPTxStatus(ENDP1, EP_TX_NAK);
 
   /* Set this device to response on default address */
   SetDeviceAddress(0);
@@ -211,6 +246,16 @@ void CustomHID_SetConfiguration(void)
     
   }
 }
+
+
+u8 *PF_Data_Request(u16 length)
+{
+	
+    if (length == 0)
+        return (u8*)55;    // 假定你的REPORT长度和Buffer长度为10
+
+     return &PF_Buffer[pInformation->Ctrl_Info.Usb_wOffset];;
+}
 /*******************************************************************************
 * Function Name  : CustomHID_SetConfiguration.
 * Description    : Update the device state to addressed.
@@ -231,6 +276,9 @@ void CustomHID_SetDeviceAddress (void)
 *******************************************************************************/
 void CustomHID_Status_In(void)
 {
+	bDeviceState = CONFIGURED;
+	
+//	DBG_H("USB_Buff-12345",USB_Buff,8);
 }
 
 /*******************************************************************************
@@ -242,6 +290,9 @@ void CustomHID_Status_In(void)
 *******************************************************************************/
 void CustomHID_Status_Out (void)
 {
+	bDeviceState = CONFIGURED;
+	
+//	DBG_H("USB_Buff-0987",USB_Buff,8);
 }
 
 /*******************************************************************************
@@ -253,8 +304,9 @@ void CustomHID_Status_Out (void)
 *******************************************************************************/
 RESULT CustomHID_Data_Setup(uint8_t RequestNo)
 {
-  uint8_t *(*CopyRoutine)(uint16_t);
+	uint8_t *(*CopyRoutine)(uint16_t);
 
+	uint8_t buff[8]={0};
   CopyRoutine = NULL;
 
   if ((RequestNo == GET_DESCRIPTOR)
@@ -279,16 +331,62 @@ RESULT CustomHID_Data_Setup(uint8_t RequestNo)
   {
     CopyRoutine = CustomHID_GetProtocolValue;
   }
-
-  if (CopyRoutine == NULL)
+	
+	/*** SET_REPORT ***/ //新添加-18-06-05
+  else if ((Type_Recipient == (CLASS_REQUEST | INTERFACE_RECIPIENT))
+           && RequestNo == SET_REPORT) // SET_REPORT =9
   {
-    return USB_UNSUPPORT;
-  }
+		 CopyRoutine = My_Data_Request;//mKeyboard_GetReportDescriptor;//Keyboard_GetReportDescriptor;  //
+     
+		pInformation->Ctrl_Info.CopyData = CopyRoutine;
+    pInformation->Ctrl_Info.Usb_wOffset = 0;
+		pInformation->Ctrl_Info.Usb_wLength =82;
 
+		return USB_SUCCESS;//0x4B;//0x5A;//U//0x4B;//
+  }
+	
+	/*** GET_REPORT ***/ //新添加-18-06-05
+	else if ((Type_Recipient == (CLASS_REQUEST | INTERFACE_RECIPIENT))
+           && RequestNo == GET_REPORT) //GET_REPORT = 1
+  {
+  if(IDTUSB_Reviceflag==0xab)
+		{
+			while(_GetEPTxStatus(ENDP0)!=(0x02<<4));
+			memcpy(buff,IDTUSB_SendBuff+sendcount*8,8);
+ 
+			UserToPMABufferCopy(buff, GetEPTxAddr(ENDP0), 8); 
+			SetEPTxValid(ENDP0);
+			SetEPTxCount(ENDP0, 8);
+		  sendcount++;
+			while(_GetEPTxStatus(ENDP0)!=(0x02<<4));//等待USB端点0发送完成
+			if(sendcount == usbd_sendlen )
+			{			
+				sendcount=0;
+				usbd_sendlen=0xdd;
+				memset(IDTUSB_SendBuff,0x00,idte_datalen);
+				IDTUSB_Reviceflag=0xff;
+			}			
+		}
+		else
+		{ 
+			UserToPMABufferCopy(buff, GetEPTxAddr(ENDP0), 8); 
+		  SetEPTxValid(ENDP0);
+			SetEPTxCount(ENDP0, 8);
+		
+		}while(_GetEPTxStatus(ENDP0)!=(0x02<<4));
+
+			pInformation->Ctrl_Info.Usb_wLength =8;
+		  return USB_SUCCESS;//0x5A;//0x4B;///
+  }
+  if (CopyRoutine == NULL)
+  {	
+    return  USB_UNSUPPORT;
+		
+  }
   pInformation->Ctrl_Info.CopyData = CopyRoutine;
   pInformation->Ctrl_Info.Usb_wOffset = 0;
   (*CopyRoutine)(0);
-  return USB_SUCCESS;
+  return  USB_SUCCESS; 
 }
 
 /*******************************************************************************
@@ -305,11 +403,19 @@ RESULT CustomHID_NoData_Setup(uint8_t RequestNo)
   {
     return CustomHID_SetProtocol();
   }
+	
+		else if ((Type_Recipient == (CLASS_REQUEST | INTERFACE_RECIPIENT))//新添加2018-06-05
+      && (RequestNo == SET_IDLE))
+  {
+    return USB_SUCCESS;
+  }
+
 
   else
   {
     return USB_UNSUPPORT;
   }
+	
 }
 
 /*******************************************************************************
@@ -321,7 +427,7 @@ RESULT CustomHID_NoData_Setup(uint8_t RequestNo)
 *******************************************************************************/
 uint8_t *CustomHID_GetDeviceDescriptor(uint16_t Length)
 {
-  return Standard_GetDescriptorData(Length, &Device_Descriptor);
+  return Standard_GetDescriptorData(Length, &Device_Descriptor_Custom);
 }
 
 /*******************************************************************************
@@ -333,7 +439,7 @@ uint8_t *CustomHID_GetDeviceDescriptor(uint16_t Length)
 *******************************************************************************/
 uint8_t *CustomHID_GetConfigDescriptor(uint16_t Length)
 {
-  return Standard_GetDescriptorData(Length, &Config_Descriptor);
+  return Standard_GetDescriptorData(Length, &Config_Descriptor_Custom);
 }
 
 /*******************************************************************************
@@ -352,7 +458,7 @@ uint8_t *CustomHID_GetStringDescriptor(uint16_t Length)
   }
   else 
   {
-    return Standard_GetDescriptorData(Length, &String_Descriptor[wValue0]);
+    return Standard_GetDescriptorData(Length, &String_Descriptor_Custom[wValue0]);
   }
 }
 

@@ -35,3 +35,17 @@
 .\obj\dev_msread.o: ..\user\dukpt.h
 .\obj\dev_msread.o: ..\user\utilities.h
 .\obj\dev_msread.o: ..\UsbLayer\usb_endp.h
+.\obj\dev_msread.o: ..\UsbLayer\usblib\usb_type.h
+.\obj\dev_msread.o: ..\UsbLayer\usb_conf.h
+.\obj\dev_msread.o: ..\UsbLayer\usblib\usb_lib.h
+.\obj\dev_msread.o: ..\UsbLayer\hw_config.h
+.\obj\dev_msread.o: ..\UsbLayer\platform_config.h
+.\obj\dev_msread.o: ..\UsbLayer\usblib\usb_regs.h
+.\obj\dev_msread.o: ..\UsbLayer\usblib\usb_def.h
+.\obj\dev_msread.o: ..\UsbLayer\usblib\usb_core.h
+.\obj\dev_msread.o: ..\UsbLayer\usblib\usb_init.h
+.\obj\dev_msread.o: ..\UsbLayer\usblib\usb_sil.h
+.\obj\dev_msread.o: ..\UsbLayer\usblib\usb_mem.h
+.\obj\dev_msread.o: ..\UsbLayer\usblib\usb_int.h
+.\obj\dev_msread.o: ..\UsbLayer\usb_istr.h
+.\obj\dev_msread.o: ..\UsbLayer\usb_pwr.h

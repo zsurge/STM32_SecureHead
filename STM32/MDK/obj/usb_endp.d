@@ -37,3 +37,15 @@
 .\obj\usb_endp.o: D:\Keil\ARM\ARMCC\bin\..\include\string.h
 .\obj\usb_endp.o: D:\Keil\ARM\ARMCC\bin\..\include\stdio.h
 .\obj\usb_endp.o: D:\Keil\ARM\ARMCC\bin\..\include\stdlib.h
+.\obj\usb_endp.o: ..\keyboard\inc\usb_prop_hid.h
+.\obj\usb_endp.o: ..\user\app.h
+.\obj\usb_endp.o: ..\user\magdecode.h
+.\obj\usb_endp.o: ..\dev\dev_eprom.h
+.\obj\usb_endp.o: ..\dev\dev_uart.h
+.\obj\usb_endp.o: ..\dev\dev_timer.h
+.\obj\usb_endp.o: ..\dev\dev_msread.h
+.\obj\usb_endp.o: ..\user\des.h
+.\obj\usb_endp.o: ..\user\sha1.h
+.\obj\usb_endp.o: ..\user\aes.h
+.\obj\usb_endp.o: ..\user\dukpt.h
+.\obj\usb_endp.o: ..\user\utilities.h

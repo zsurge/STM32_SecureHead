@@ -41,7 +41,15 @@ char ReadUpgradeFlag()
 void WriteUpgradeFlag()
 {    	
     unsigned char flag[4] = {0xAA,0xBB,0xAA,0xBB};
-    
+//    uint8_t tempdata[200];
+//		
+//		ReadBlockFlash(PARAM_START_ADD ,tempdata, 200);     			//读出之前保存的密钥值
+//		
+//		tempdata[196]=0xAA;
+//		tempdata[197]=0xBB;
+//		tempdata[198]=0xAA;
+//		tempdata[199]=0xBB;
+		
 	__disable_irq();
 	EarseBlockFlash(PARAM_START_ADD);
 	WriteBlockFlash(PARAM_START_ADD ,flag, 4);

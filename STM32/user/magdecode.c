@@ -1593,27 +1593,27 @@ EXTERNMAG unsigned char GetMSR_CardDataForUART (void)
 {
 	int i;
 	if (Track1Data.Length > 2) {
-		printf("TK1:");
+//		printf("TK1:");
 		for (i = 2; i < Track1Data.Length - 2; i++) {
-			printf("%c", Track1Data.Value[i]);
+//			printf("%c", Track1Data.Value[i]);
 		}
-		printf("\r\n");
+//		printf("\r\n");
 	}
 	
 	if (Track2Data.Length > 2) {
-		printf("TK2:");
+//		printf("TK2:");
 		for (i = 2; i < Track2Data.Length - 2; i++) {
-			printf("%c", Track2Data.Value[i]);
+//			printf("%c", Track2Data.Value[i]);
 		}
-		printf("\r\n");
+//		printf("\r\n");
 	}
 	
 	if (Track3Data.Length > 2) {
-		printf("TK3:");
+//		printf("TK3:");
 		for (i = 2; i < Track3Data.Length - 2; i++) {
-			printf("%c", Track3Data.Value[i]);
+//			printf("%c", Track3Data.Value[i]);
 		}
-		printf("\r\n");
+//		printf("\r\n");
 	}
 	
 	return NULL;

@@ -24,3 +24,16 @@
 .\obj\stm32f10x_it.o: D:\Keil\ARM\ARMCC\bin\..\include\stdlib.h
 .\obj\stm32f10x_it.o: D:\Keil\ARM\ARMCC\bin\..\include\string.h
 .\obj\stm32f10x_it.o: ..\user\magdecode.h
+.\obj\stm32f10x_it.o: ..\UsbLayer\usblib\usb_lib.h
+.\obj\stm32f10x_it.o: ..\UsbLayer\hw_config.h
+.\obj\stm32f10x_it.o: ..\UsbLayer\platform_config.h
+.\obj\stm32f10x_it.o: ..\UsbLayer\usblib\usb_type.h
+.\obj\stm32f10x_it.o: ..\UsbLayer\usb_conf.h
+.\obj\stm32f10x_it.o: ..\UsbLayer\usblib\usb_regs.h
+.\obj\stm32f10x_it.o: ..\UsbLayer\usblib\usb_def.h
+.\obj\stm32f10x_it.o: ..\UsbLayer\usblib\usb_core.h
+.\obj\stm32f10x_it.o: ..\UsbLayer\usblib\usb_init.h
+.\obj\stm32f10x_it.o: ..\UsbLayer\usblib\usb_sil.h
+.\obj\stm32f10x_it.o: ..\UsbLayer\usblib\usb_mem.h
+.\obj\stm32f10x_it.o: ..\UsbLayer\usblib\usb_int.h
+.\obj\stm32f10x_it.o: ..\UsbLayer\usb_istr.h

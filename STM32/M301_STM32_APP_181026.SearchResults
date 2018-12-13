@@ -1,0 +1,3 @@
+---- ACTIVATION_CHALLENGE_REPLY_COMMAND Matches (2 in 2 files) ----
+app.c (user):					case ACTIVATION_CHALLENGE_REPLY_COMMAND://数据二次认证  在等级4的时候	
+app.h (user):#define ACTIVATION_CHALLENGE_REPLY_COMMAND     0x82   /*加密等级4时候 进行二次认证*/

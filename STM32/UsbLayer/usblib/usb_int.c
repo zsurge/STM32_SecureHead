@@ -76,10 +76,12 @@ void CTR_LP(void)
 
 	    _SetEPRxTxStatus(ENDP0,EP_RX_NAK,EP_TX_NAK);
 
+			
       /* DIR bit = origin of the interrupt */
 
       if ((wIstr & ISTR_DIR) == 0)
       {
+//				printf("in0===wIstr=%d\r\n",wIstr);
         /* DIR = 0 */
 
         /* DIR = 0      => IN  int */
@@ -102,7 +104,7 @@ void CTR_LP(void)
         /* DIR = 1 & (CTR_TX | CTR_RX) => 2 int pending */
 
         wEPVal = _GetENDPOINT(ENDP0);
-        
+//        printf("FF==wEPVal=%d\r\n",wEPVal);
         if ((wEPVal &EP_SETUP) != 0)
         {
           _ClearEP_CTR_RX(ENDP0); /* SETUP bit kept frozen while CTR_RX = 1 */
@@ -115,6 +117,7 @@ void CTR_LP(void)
 
         else if ((wEPVal & EP_CTR_RX) != 0)
         {
+//					printf("in0===ISTR_DIR=%d\r\n",ISTR_DIR);
           _ClearEP_CTR_RX(ENDP0);
           Out0_Process();
           /* before terminate set Tx & Rx status */

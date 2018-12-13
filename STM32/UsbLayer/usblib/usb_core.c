@@ -28,6 +28,8 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "usb_lib.h"
+#include "usb_prop_hid.h"
+#include "usb_endp.h"
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 #define ValBit(VAR,Place)    (VAR & (1 << Place))
@@ -475,6 +477,10 @@ void DataStageOut(void)
     PCD_EP_Read(ENDP0, Buffer, Length); 
   #else  
     PMAToUserBufferCopy(Buffer, GetEPRxAddr(ENDP0), Length);
+
+		Revice_IDTdata(Buffer,8);
+		
+
   #endif  /* STM32F10X_CL */
   }
 
@@ -558,7 +564,8 @@ void DataStageIn(void)
 #ifdef STM32F10X_CL
   PCD_EP_Write (ENDP0, DataBuffer, Length);
 #else   
-  UserToPMABufferCopy(DataBuffer, GetEPTxAddr(ENDP0), Length);
+  UserToPMABufferCopy(DataBuffer, GetEPTxAddr(ENDP0), Length); 
+//  DBG_H("in-------DataBuffer",DataBuffer,Length);
 #endif /* STM32F10X_CL */ 
 
   SetEPTxCount(ENDP0, Length);
@@ -568,7 +575,8 @@ void DataStageIn(void)
   vSetEPTxStatus(EP_TX_VALID);
 
   USB_StatusOut();/* Expect the host to abort the data IN stage */
-
+	
+//  DBG_H("DataBuffer",DataBuffer,8);
 Expect_Status_Out:
   pInformation->ControlState = ControlState;
 }
@@ -720,7 +728,7 @@ void Data_Setup0(void)
 
   CopyRoutine = NULL;
   wOffset = 0;
-
+//  printf("Request_No=%d\r\n",Request_No);
   /*GET DESCRIPTOR*/
   if (Request_No == GET_DESCRIPTOR)
   {
@@ -739,6 +747,11 @@ void Data_Setup0(void)
       {
         CopyRoutine = pProperty->GetStringDescriptor;
       }  /* End of GET_DESCRIPTOR */
+			   //add 06 12
+//      else if(wValue1 == ENDPOINT_DESCRIPTOR)
+//      {
+//        printf("##############################\r\n");
+//      }
     }
   }
 
@@ -889,6 +902,7 @@ void Data_Setup0(void)
 uint8_t Setup0_Process(void)
 {
 
+//	printf("Setup0_Process==================\r\n");
   union
   {
     uint8_t* b;
@@ -943,7 +957,7 @@ uint8_t Setup0_Process(void)
 uint8_t In0_Process(void)
 {
   uint32_t ControlState = pInformation->ControlState;
-
+//  printf("In0_Process----------ControlState=%d\r\n",ControlState);
   if ((ControlState == IN_DATA) || (ControlState == LAST_IN_DATA))
   {
     DataStageIn();
@@ -983,7 +997,8 @@ uint8_t In0_Process(void)
 uint8_t Out0_Process(void)
 {
   uint32_t ControlState = pInformation->ControlState;
-
+//	DBG_H("Out0_Process------Ctrl_Info.CopyData",(char*)pInformation->Ctrl_Info.CopyData,8);
+//	printf("SSSSSSSSSSOut0_Process----------ControlState=%d\r\n",ControlState);
   if ((ControlState == IN_DATA) || (ControlState == LAST_IN_DATA))
   {
     /* host aborts the transfer before finish */

@@ -144,7 +144,7 @@
             <UsePdscDebugDescription>0</UsePdscDebugDescription>
           </Target>
           <RunDebugAfterBuild>0</RunDebugAfterBuild>
-          <TargetSelection>6</TargetSelection>
+          <TargetSelection>11</TargetSelection>
           <SimDlls>
             <CpuDll></CpuDll>
             <CpuDllArguments></CpuDllArguments>
@@ -158,7 +158,7 @@
             <PeripheralDll></PeripheralDll>
             <PeripheralDllArguments></PeripheralDllArguments>
             <InitializationFile></InitializationFile>
-            <Driver>Segger\JL2CM3.dll</Driver>
+            <Driver>STLink\ST-LINKIII-KEIL_SWO.dll</Driver>
           </TargetDlls>
         </DebugOption>
         <Utilities>
@@ -344,7 +344,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>3</Optim>
+            <Optim>4</Optim>
             <oTime>0</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>1</OneElfS>
@@ -362,7 +362,7 @@
               <MiscControls></MiscControls>
               <Define>STM32F10X_MD,USE_STDPERIPH_DRIVER, USE_STM3210B_EVAL</Define>
               <Undefine></Undefine>
-              <IncludePath>..\user;..\dev;..\lib\inc;..\core_cm3;..\UsbLayer;..\UsbLayer\usblib</IncludePath>
+              <IncludePath>..\user;..\dev;..\lib\inc;..\core_cm3;..\UsbLayer;..\UsbLayer\usblib;..\keyboard\inc</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -536,14 +536,14 @@
               <FilePath>..\lib\src\stm32f10x_iwdg.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f10x_bkp.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\lib\src\stm32f10x_bkp.c</FilePath>
-            </File>
-            <File>
               <FileName>stm32f10x_rtc.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\lib\src\stm32f10x_rtc.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f10x_bkp.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\lib\src\stm32f10x_bkp.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -639,6 +639,21 @@
               <FileName>usb_sil.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\UsbLayer\usblib\usb_sil.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>keyboard</GroupName>
+          <Files>
+            <File>
+              <FileName>usb_desc_hid.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\keyboard\src\usb_desc_hid.c</FilePath>
+            </File>
+            <File>
+              <FileName>usb_prop_hid.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\keyboard\src\usb_prop_hid.c</FilePath>
             </File>
           </Files>
         </Group>

@@ -92,7 +92,7 @@ uint32_t USB_SIL_Write(uint8_t bEpAddr, uint8_t* pBufferPointer, uint32_t wBuffe
    PCD_EP_Write (bEpAddr, pBufferPointer, wBufferSize); 
    
 #endif /* STM32F10X_CL */
-
+//  DBG_H("hhhhhhh=wBufferSize",wBufferSize,8);
   return 0;
 }
 
@@ -131,7 +131,7 @@ uint32_t USB_SIL_Read(uint8_t bEpAddr, uint8_t* pBufferPointer)
   PCD_EP_Read (bEpAddr, pBufferPointer, DataLength);
   
 #endif /* STM32F10X_CL */
-
+//  DBG_H("pBufferPointer",pBufferPointer,8);
   /* Return the number of received data */
   return DataLength;
 }

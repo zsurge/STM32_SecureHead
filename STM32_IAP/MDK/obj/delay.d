@@ -1,11 +1,11 @@
 .\obj\delay.o: ..\user\delay.c
 .\obj\delay.o: ..\user\delay.h
-.\obj\delay.o: D:\Keil\ARM\ARMCC\bin\..\include\stdio.h
-.\obj\delay.o: D:\Keil\ARM\ARMCC\bin\..\include\stdint.h
+.\obj\delay.o: E:\MDK_KEIL4.74\ARM\ARMCC\bin\..\include\stdio.h
+.\obj\delay.o: E:\MDK_KEIL4.74\ARM\ARMCC\bin\..\include\stdint.h
 .\obj\delay.o: ..\core_cm3\stm32f10x.h
-.\obj\delay.o: D:\Keil\ARM\CMSIS\Include\core_cm3.h
-.\obj\delay.o: D:\Keil\ARM\CMSIS\Include\core_cmInstr.h
-.\obj\delay.o: D:\Keil\ARM\CMSIS\Include\core_cmFunc.h
+.\obj\delay.o: E:\MDK_KEIL4.74\ARM\CMSIS\Include\core_cm3.h
+.\obj\delay.o: E:\MDK_KEIL4.74\ARM\CMSIS\Include\core_cmInstr.h
+.\obj\delay.o: E:\MDK_KEIL4.74\ARM\CMSIS\Include\core_cmFunc.h
 .\obj\delay.o: ..\core_cm3\system_stm32f10x.h
 .\obj\delay.o: ..\user\stm32f10x_conf.h
 .\obj\delay.o: ..\lib\inc\stm32f10x_bkp.h

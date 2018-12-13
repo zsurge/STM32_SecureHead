@@ -25,6 +25,9 @@
 #include "stm32f10x_it.h"
 #include "dev_uart.h"
 #include "magdecode.h"
+#include "usb_lib.h"
+#include "usb_istr.h"
+
 
 #define FILTERNUM 2				//过滤前后多少个波形
 volatile uint16_t TM1ReadValue1 = 0, TM1ReadValue2 = 0;
@@ -36,6 +39,7 @@ volatile uint8_t TM3CaptureNumber = 0;
 
 __IO unsigned int g1msTimer6 = 0;//for USB
 
+extern char usb_reviceflag;
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
@@ -166,10 +170,12 @@ void USART1_IRQHandler(void)
 			rec_end0 = rec_head0;
 		} else {
 			ch = USART1->DR;
+			usb_reviceflag=ch;
 			//USART_SendData(USART1, ch);
-			rec_buf0[rec_end0++] = (unsigned char)(ch&0xff);
+//			rec_buf0[rec_end0++] = (unsigned char)(ch&0xff);
 			if (rec_end0 >= RXTEMPBUFLENMAX) {
 				rec_end0 = 0;
+//				ch=0;
 			}
 
 		}
@@ -424,6 +430,47 @@ void RTCAlarm_IRQHandler(void)
   }
 
 
+}
+
+
+/*******************************************************************************
+* Function Name  : USB_FS_WKUP_IRQHandler
+* Description    : This function handles USB WakeUp interrupt request.
+* Input          : None
+* Output         : None
+* Return         : None
+*******************************************************************************/
+void USB_FS_WKUP_IRQHandler(void)
+{
+  EXTI_ClearITPendingBit(EXTI_Line18);
+}
+
+
+/*******************************************************************************
+* Function Name  : USB_HP_CAN1_TX_IRQHandler
+* Description    : This function handles USB High Priority or CAN TX interrupts requests
+*                  requests.
+* Input          : None
+* Output         : None
+* Return         : None
+*******************************************************************************/
+//void USB_HP_CAN1_TX_IRQHandler(void)
+//{
+//  CTR_HP();
+//}
+
+/*******************************************************************************
+* Function Name  : USB_IRQHandler
+* Description    : This function handles USB Low Priority interrupts
+*                  requests.
+* Input          : None
+* Output         : None
+* Return         : None
+*******************************************************************************/
+void USB_LP_CAN1_RX0_IRQHandler(void)
+
+{
+  USB_Istr();
 }
 
 /******************* (C) COPYRIGHT 2011 STMicroelectronics *****END OF FILE****/

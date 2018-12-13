@@ -47,3 +47,6 @@
 .\obj\main.o: ..\UsbLayer\usblib\usb_int.h
 .\obj\main.o: ..\UsbLayer\usb_istr.h
 .\obj\main.o: ..\UsbLayer\usb_endp.h
+.\obj\main.o: ..\UsbLayer\usb_prop.h
+.\obj\main.o: ..\keyboard\inc\usb_prop_hid.h
+.\obj\main.o: ..\UsbLayer\usb_pwr.h

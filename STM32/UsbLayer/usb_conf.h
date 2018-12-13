@@ -40,7 +40,7 @@
 /* EP_NUM */
 /* defines how many endpoints are used by the device */
 /*-------------------------------------------------------------*/
-#define EP_NUM     (2)
+#define EP_NUM     (8)
 
 #ifndef STM32F10X_CL
 /*-------------------------------------------------------------*/
@@ -179,7 +179,7 @@
 
 /* CTR service routines */
 /* associated to defined endpoints */
-/* #define  EP1_IN_Callback   NOP_Process */
+// #define  EP1_IN_Callback   NOP_Process 
 #define  EP2_IN_Callback   NOP_Process
 #define  EP3_IN_Callback   NOP_Process
 #define  EP4_IN_Callback   NOP_Process

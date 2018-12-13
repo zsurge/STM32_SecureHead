@@ -1,5 +1,6 @@
 .\obj\app.o: ..\user\app.c
 .\obj\app.o: D:\Keil\ARM\ARMCC\bin\..\include\stdlib.h
+.\obj\app.o: D:\Keil\ARM\ARMCC\bin\..\include\stdio.h
 .\obj\app.o: ..\user\app.h
 .\obj\app.o: ..\user\magdecode.h
 .\obj\app.o: D:\Keil\ARM\ARMCC\bin\..\include\stdint.h
@@ -32,5 +33,9 @@
 .\obj\app.o: ..\user\aes.h
 .\obj\app.o: ..\user\dukpt.h
 .\obj\app.o: ..\user\utilities.h
+.\obj\app.o: D:\Keil\ARM\ARMCC\bin\..\include\math.h
 .\obj\app.o: ..\UsbLayer\usblib\usb_type.h
 .\obj\app.o: ..\UsbLayer\usb_conf.h
+.\obj\app.o: ..\user\ini.h
+.\obj\app.o: ..\user\utilities.h
+.\obj\app.o: ..\UsbLayer\usb_endp.h

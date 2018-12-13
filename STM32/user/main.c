@@ -22,9 +22,13 @@
 #include "usb_lib.h"
 #include "usb_istr.h"
 #include "usb_endp.h"
+#include "usb_prop.h"
+#include "usb_prop_hid.h"
+#include "usb_pwr.h"
+#include "dev_uart.h"
 
-
-
+DEVICE_PROP Device_Property;
+USER_STANDARD_REQUESTS User_Standard_Requests;
 
 #define PinCPD  GPIO_Pin_2
 #define PinOUT1 GPIO_Pin_7
@@ -36,6 +40,30 @@ void RCC_Configuration(void);
 void GPIO_Configuration(void);
 void delay_ms(uint16_t nms);
 void delay_us(uint32_t Nus);
+extern void Keyboard_hid_init(void);
+
+//extern char usb_reviceflag;
+
+
+
+void Trans_Mode_Switch(void)
+{
+	if(ENC_KEY.temp.Tranmodeselect==0x38)  //keyboard
+	{				
+		ENC_KEY.temp.Tranmodeselect=0x38;
+		Keyboard_hid_init();
+		USB_Init();
+	}
+	else //if(ENC_KEY.temp.Tranmodeselect==0x38)  hid_custom
+	{	
+    ENC_KEY.temp.Tranmodeselect=0x30;
+		Custom_Init();
+		USB_Init();
+	
+	}
+	
+	
+}
 /*******************************************************************************
 * Function Name  : RCC_Configuration
 * Description    : 系统时钟设置
@@ -390,7 +418,7 @@ void RTC_Configuration(void)
 * Date			 : 2017-03-05
 *******************************************************************************/
 #define DEV_WDG_PR      IWDG_Prescaler_64       //时钟分频
-#define DEV_WDG_RELOAD  1000   					//喂狗时间
+#define DEV_WDG_RELOAD  2000   					//喂狗时间
 void IWDG_Configuration(void)
 {
 	/* 写入0x5555,用于允许狗狗寄存器写入功能 */
@@ -456,37 +484,39 @@ extern volatile char MSR_fCardDataReady;
 extern __IO uint8_t TM1CaptureNumber;
 extern __IO uint8_t TM2CaptureNumber;
 extern __IO uint8_t TM3CaptureNumber;
+
+
 int main(void)
 {
-    #if 1
-	int ret;
+	
 	uint8_t Buf[110];
 	
-	RCC_Configuration();
 	
+	/* NVIC configuration */
+	NVIC_Configuration();
+	
+//	RCC_Configuration();
+	
+//	dev_com_open();
+	
+	ReadENCKEY();
+
+	delay_init(72);
+
 	/* Configure EXTI Line to generate an interrupt on falling edge */
 	EXTI_Configuration();
 
-	/* NVIC configuration */
-//	NVIC_Configuration();
-    
-//	IWDG_Configuration();
+	IWDG_Configuration();
 
-//	if (RCC_GetFlagStatus(RCC_FLAG_IWDGRST) != RESET) {			//如果上次是看门狗引起的复位
-//		RCC_ClearFlag();
-//	}
-    
+	Set_USBClock();
+ 
+	USB_Cable_Config(ENABLE); 
+
+	USB_Interrupts_Config();
+
+//  ENC_KEY.temp.Tranmodeselect=0x38;
+	Trans_Mode_Switch();
 	
-	delay_init(72);
-
-	//打开串口
-	dev_com_open();		
-	uart_puts("APP Start...\r\n");
-
-	#endif
-
-	//USB INIT
-	UsbAllInit();	
 	UsbRecvReset();
 
 #if 1	
@@ -495,57 +525,49 @@ int main(void)
 	TIM2_Cap_Init(72 - 1);										//以 1Mhz 的频率计数
 	TIM3_Cnt_Init();											//定时1.3s初始化，用于刷卡完成
 
-	//复位加密磁头加密KEY
-	#ifdef FLASHKEY_SUPPORT
-	if(!ReadENCKEY())
-	{
-		memset(ENC_KEY.key, 0x00, sizeof(ENC_KEY.key));
-		ENC_KEY.temp.level = 0x31;
-		WriteFlag = 1;	
-	}
-	#else
-	memset(ENC_KEY.key, 0x00, sizeof(ENC_KEY.key));
-	ENC_KEY.temp.level = 0x31;
-	#endif
+  while(CONFIGURED!=bDeviceState);//判断USB是否连接成功   若不成功则一直等待  超过3.2s的时候  看门狗复位
+	
+  delay_ms(500);
+	
+//  ENC_KEY.temp.level=0x34;
+//	ENC_KEY.temp.Activa_Challenge_Reply=0x31;
+//	 ENC_KEY.temp.status=1;
+//	 ENC_KEY.temp.Enhancedstatue=0x31;
+//	 ENC_KEY.temp.encway=0x31;
+////	ENC_KEY.temp.encway
+//	 ENC_KEY.temp.encmode=0x31;
+//	 ENC_KEY.temp.Encryption_OptionSetting=0x37;
+//	 ENC_KEY.temp.MaskSetting=0x07;
+	
 
 	while (1) {													/* main loop */
-
-//	uart_puts(" main loop...\r\n");
-
-		//喂狗
-//		IWDG_ReloadCounter();
 		
+		IWDG_ReloadCounter();
 		//串口协议数据处理
 		DealSerialParse();
 		DealRxData();
 		
-		if (1 == GPIO_ReadInputDataBit(GPIOB, PinCPD) && MSR_fCardDataReady) {
+//		ENC_KEY.temp.enabledevice ==0x30//判断刷卡器是否使能  是 则能够进行刷卡  否则反之
 
-			ret = MSR_GetCharacterDataOn(0, Buf, sizeof(Buf));	//一磁道解码
-
-//			if (0 == ret) {	
-//				printf("TK1:%s\r\n", (char *)Buf);
-//			} else {
-//				printf("TK1 ret:%d\r\n", ret);
-//			}
-
-			ret = MSR_GetCharacterDataOn(1, Buf, sizeof(Buf));	//二磁道解码
-
-//			if (0 == ret) {	
-//				printf("TK2:%s\r\n", (char *)Buf);
-//			} else {
-//				printf("TK2 ret:%d\r\n", ret);
-//			}
-
-			ret = MSR_GetCharacterDataOn(2, Buf, sizeof(Buf));	//三磁道解码
-
-//			if (0 == ret) {	
-//				printf("TK3:%s\r\n", (char *)Buf);
-//			} else {
-//				printf("TK3 ret:%d\r\n", ret);
-//			}
+		if/*ret==0xdd) */(1 == GPIO_ReadInputDataBit(GPIOB, PinCPD) && MSR_fCardDataReady && ENC_KEY.temp.enabledevice ==0x31) {
+//		   ret=0;
+			if((ENC_KEY.temp.selecttrack == 0x30) || (getbit(0,ENC_KEY.temp.selecttrack) == 0x01)){ //第一轨道数据解码
+			/*  ret = */MSR_GetCharacterDataOn(0, Buf, sizeof(Buf));	//一磁道解码
+			}
+      
 			
+      if((ENC_KEY.temp.selecttrack == 0x30) || (getbit(1,ENC_KEY.temp.selecttrack) == 0x02)){//第二轨道数据解码
+			 /* ret = */MSR_GetCharacterDataOn(1, Buf, sizeof(Buf));	//二磁道解码
+			}
+
+			
+      if((ENC_KEY.temp.selecttrack == 0x30) || (getbit(2,ENC_KEY.temp.selecttrack) == 0x04)){//第三轨道数据解码
+			 /* ret = */MSR_GetCharacterDataOn(2, Buf, sizeof(Buf));	//三磁道解码
+			}
+
+
 			MSR_SendData();
+			
 			if (GetNextFlag) {									//计算下一个KSN
 			
 				GetNextKSN();
@@ -558,8 +580,8 @@ int main(void)
 			TM2CaptureNumber = 0;
 			TM3CaptureNumber = 0;
 		}
+
 	}
 	#endif
-
 }
 

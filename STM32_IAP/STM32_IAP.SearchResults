@@ -1,3 +1,5 @@
----- 0x3800 Matches (2 in 1 files) ----
-stm32f10x.h (core_cm3):#define SPI2_BASE             (APB1PERIPH_BASE + 0x3800)
-stm32f10x.h (core_cm3):#define USART1_BASE           (APB2PERIPH_BASE + 0x3800)
+---- calc_sum Matches (4 in 1 files) ----
+iap.c (user):	unsigned char calc_sum = 0;
+iap.c (user):				calc_sum = 0;
+iap.c (user):						calc_sum ^= * (pBuff + pos);
+iap.c (user):				if (calc_sum == get_sum)

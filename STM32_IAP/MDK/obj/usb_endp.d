@@ -2,10 +2,10 @@
 .\obj\usb_endp.o: ..\UsbLayer\hw_config.h
 .\obj\usb_endp.o: ..\UsbLayer\platform_config.h
 .\obj\usb_endp.o: ..\core_cm3\stm32f10x.h
-.\obj\usb_endp.o: D:\Keil\ARM\CMSIS\Include\core_cm3.h
-.\obj\usb_endp.o: D:\Keil\ARM\ARMCC\bin\..\include\stdint.h
-.\obj\usb_endp.o: D:\Keil\ARM\CMSIS\Include\core_cmInstr.h
-.\obj\usb_endp.o: D:\Keil\ARM\CMSIS\Include\core_cmFunc.h
+.\obj\usb_endp.o: E:\MDK_KEIL4.74\ARM\CMSIS\Include\core_cm3.h
+.\obj\usb_endp.o: E:\MDK_KEIL4.74\ARM\ARMCC\bin\..\include\stdint.h
+.\obj\usb_endp.o: E:\MDK_KEIL4.74\ARM\CMSIS\Include\core_cmInstr.h
+.\obj\usb_endp.o: E:\MDK_KEIL4.74\ARM\CMSIS\Include\core_cmFunc.h
 .\obj\usb_endp.o: ..\core_cm3\system_stm32f10x.h
 .\obj\usb_endp.o: ..\user\stm32f10x_conf.h
 .\obj\usb_endp.o: ..\lib\inc\stm32f10x_bkp.h
@@ -34,6 +34,6 @@
 .\obj\usb_endp.o: ..\UsbLayer\usb_istr.h
 .\obj\usb_endp.o: ..\UsbLayer\usb_endp.h
 .\obj\usb_endp.o: ..\UsbLayer\usb_pwr.h
-.\obj\usb_endp.o: D:\Keil\ARM\ARMCC\bin\..\include\string.h
-.\obj\usb_endp.o: D:\Keil\ARM\ARMCC\bin\..\include\stdio.h
-.\obj\usb_endp.o: D:\Keil\ARM\ARMCC\bin\..\include\stdlib.h
+.\obj\usb_endp.o: E:\MDK_KEIL4.74\ARM\ARMCC\bin\..\include\string.h
+.\obj\usb_endp.o: E:\MDK_KEIL4.74\ARM\ARMCC\bin\..\include\stdio.h
+.\obj\usb_endp.o: E:\MDK_KEIL4.74\ARM\ARMCC\bin\..\include\stdlib.h

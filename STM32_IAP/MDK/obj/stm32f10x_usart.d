@@ -1,10 +1,10 @@
 .\obj\stm32f10x_usart.o: ..\lib\src\stm32f10x_usart.c
 .\obj\stm32f10x_usart.o: ..\lib\inc\stm32f10x_usart.h
 .\obj\stm32f10x_usart.o: ..\core_cm3\stm32f10x.h
-.\obj\stm32f10x_usart.o: D:\Keil\ARM\CMSIS\Include\core_cm3.h
-.\obj\stm32f10x_usart.o: D:\Keil\ARM\ARMCC\bin\..\include\stdint.h
-.\obj\stm32f10x_usart.o: D:\Keil\ARM\CMSIS\Include\core_cmInstr.h
-.\obj\stm32f10x_usart.o: D:\Keil\ARM\CMSIS\Include\core_cmFunc.h
+.\obj\stm32f10x_usart.o: E:\MDK_KEIL4.74\ARM\CMSIS\Include\core_cm3.h
+.\obj\stm32f10x_usart.o: E:\MDK_KEIL4.74\ARM\ARMCC\bin\..\include\stdint.h
+.\obj\stm32f10x_usart.o: E:\MDK_KEIL4.74\ARM\CMSIS\Include\core_cmInstr.h
+.\obj\stm32f10x_usart.o: E:\MDK_KEIL4.74\ARM\CMSIS\Include\core_cmFunc.h
 .\obj\stm32f10x_usart.o: ..\core_cm3\system_stm32f10x.h
 .\obj\stm32f10x_usart.o: ..\user\stm32f10x_conf.h
 .\obj\stm32f10x_usart.o: ..\lib\inc\stm32f10x_bkp.h

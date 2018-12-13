@@ -16,7 +16,7 @@ void ReadBlockFlash(uint32_t ADDR ,u8 *Sourcebuf ,u16 len)
 	u16 i;
 
 	/* Unlock the Flash Bank1 Program Erase controller */
-  	//FLASH_Unlock();
+  	FLASH_Unlock();
 
 	for(i =0;i<len;i++)
 	{
@@ -24,7 +24,7 @@ void ReadBlockFlash(uint32_t ADDR ,u8 *Sourcebuf ,u16 len)
   		ADDR++;
   	}
 	/* Lock the Flash Bank1 Program Erase controller */
-  	//FLASH_Lock();
+  	FLASH_Lock();
 }
 
 /*******************************************************************************

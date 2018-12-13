@@ -41,13 +41,13 @@ PUTCHAR_PROTOTYPE
 *** 返 回 值:   无    	 	
 *** 模块信息: 	Ouyang 2011.06.20创建
 ******************************************************************/
-void uart_puts(char *s)
-{
-  while (*s != '\0') {
-	dev_com_write((unsigned char *)s, 1);
-    s++;
-  }
-}
+//void uart_puts(char *s)
+//{
+//  while (*s != '\0') {
+//	dev_com_write((unsigned char *)s, 1);
+//    s++;
+//  }
+//}
 /******************************************************************
 *** 函 数 名:	int dev_com_open(void)
 *** 功能描述：	打开串口0
@@ -120,21 +120,21 @@ int dev_com_open(void)
 *** 返 回 值:	成功返回0 ，否则-1     	 	
 *** 模块信息: 	Ouyang 2011.06.20创建
 ******************************************************************/
-int dev_com_close(void)
-{
-	GPIO_InitTypeDef GPIO_InitStructure;
+//int dev_com_close(void)
+//{
+//	GPIO_InitTypeDef GPIO_InitStructure;
 
-	// TXD && RXD Reset
-	GPIO_InitStructure.GPIO_Pin = PinTXD1 | PinRXD1;
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;
-	GPIO_Init(GPIOA, &GPIO_InitStructure);
+//	// TXD && RXD Reset
+//	GPIO_InitStructure.GPIO_Pin = PinTXD1 | PinRXD1;
+//	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;
+//	GPIO_Init(GPIOA, &GPIO_InitStructure);
 
-	USART_Cmd(USART1, DISABLE);
-	RCC_APB1PeriphClockCmd(RCC_APB2Periph_USART1, DISABLE);
-	
-	rec_end0 = rec_head0 = 0;
-	return(0); 	
-}
+//	USART_Cmd(USART1, DISABLE);
+//	RCC_APB1PeriphClockCmd(RCC_APB2Periph_USART1, DISABLE);
+//	
+//	rec_end0 = rec_head0 = 0;
+//	return(0); 	
+//}
 
 /*******************************************************************
 函数名称:       s32 dev_com_read (char *buf, int len)
@@ -155,7 +155,7 @@ int dev_com_read(unsigned char *buf, int len)
 	
 	i = 0;
 	while (rec_head0 != rec_end0) {
-		*buf = rec_buf0[rec_head0++];
+//		*buf = rec_buf0[rec_head0++];
 		if(rec_head0 >= RXTEMPBUFLENMAX)
 			rec_head0 = 0;
 		buf++;
@@ -214,4 +214,40 @@ void uart_printf(char *fmt,...)
     }
     dev_com_write((unsigned char *)string, length);  //写串口成功
     va_end(ap);
+}
+
+
+/*****************************************************************************
+ * Function      : DBG_H
+ * Description   : print hex string
+ * Input         : char *
+                char *
+                int
+ * Output        : None
+ * Return        : void
+ * Others        : 
+ * Record
+ * 1.Date        : 20171113
+ *   Author      : surge
+ *   Modification: Created function
+
+*****************************************************************************/
+void DBG_H( char *title,char *buff, int len )
+{
+
+//    #ifdef UART_PRINT
+    int i = 0;
+    if(len > 0)
+    {    
+    	printf("[%s]: length = %d\r\n  [ ", title,len);
+
+    	for (i = 0; i < len; i++)
+    	{
+    		printf ("%02x ", buff[i]);
+    	}
+    	
+    	printf ("] \r\n\r\n");	
+    }
+
+//    #endif
 }

@@ -31,3 +31,5 @@
 .\obj\usb_core.o: ..\UsbLayer\usblib\usb_sil.h
 .\obj\usb_core.o: ..\UsbLayer\usblib\usb_mem.h
 .\obj\usb_core.o: ..\UsbLayer\usblib\usb_int.h
+.\obj\usb_core.o: ..\keyboard\inc\usb_prop_hid.h
+.\obj\usb_core.o: ..\UsbLayer\usb_endp.h

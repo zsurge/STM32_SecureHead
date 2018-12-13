@@ -45,7 +45,7 @@ __IO uint8_t bIntPackSOF = 0;  /* SOFs received between 2 consecutive packets */
 /* function pointers to non-control endpoints service routines */
 void (*pEpInt_IN[7])(void) =
   {
-    EP1_IN_Callback,
+//    EP1_IN_Callback,
     EP2_IN_Callback,
     EP3_IN_Callback,
     EP4_IN_Callback,
@@ -56,7 +56,7 @@ void (*pEpInt_IN[7])(void) =
 
 void (*pEpInt_OUT[7])(void) =
   {
-    EP1_OUT_Callback,
+//    EP1_OUT_Callback,
     EP2_OUT_Callback,
     EP3_OUT_Callback,
     EP4_OUT_Callback,
@@ -78,7 +78,19 @@ void USB_Istr(void)
 {
 
   wIstr = _GetISTR();
+	
+#if (IMR_MSK & ISTR_SOF)
+  if (wIstr & ISTR_SOF & wInterrupt_Mask)
+  {
+    _SetISTR((uint16_t)CLR_SOF);
+    bIntPackSOF++;
 
+#ifdef SOF_CALLBACK
+    SOF_Callback();
+#endif
+  }
+#endif
+	
 #if (IMR_MSK & ISTR_CTR)
   if (wIstr & ISTR_CTR & wInterrupt_Mask)
   {

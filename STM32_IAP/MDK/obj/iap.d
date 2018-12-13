@@ -3,10 +3,10 @@
 .\obj\iap.o: ..\user\ini.h
 .\obj\iap.o: ..\dev\dev_eprom.h
 .\obj\iap.o: ..\core_cm3\stm32f10x.h
-.\obj\iap.o: D:\Keil\ARM\CMSIS\Include\core_cm3.h
-.\obj\iap.o: D:\Keil\ARM\ARMCC\bin\..\include\stdint.h
-.\obj\iap.o: D:\Keil\ARM\CMSIS\Include\core_cmInstr.h
-.\obj\iap.o: D:\Keil\ARM\CMSIS\Include\core_cmFunc.h
+.\obj\iap.o: E:\MDK_KEIL4.74\ARM\CMSIS\Include\core_cm3.h
+.\obj\iap.o: E:\MDK_KEIL4.74\ARM\ARMCC\bin\..\include\stdint.h
+.\obj\iap.o: E:\MDK_KEIL4.74\ARM\CMSIS\Include\core_cmInstr.h
+.\obj\iap.o: E:\MDK_KEIL4.74\ARM\CMSIS\Include\core_cmFunc.h
 .\obj\iap.o: ..\core_cm3\system_stm32f10x.h
 .\obj\iap.o: ..\user\stm32f10x_conf.h
 .\obj\iap.o: ..\lib\inc\stm32f10x_bkp.h
@@ -22,7 +22,7 @@
 .\obj\iap.o: ..\lib\inc\stm32f10x_tim.h
 .\obj\iap.o: ..\lib\inc\stm32f10x_usart.h
 .\obj\iap.o: ..\lib\inc\misc.h
-.\obj\iap.o: D:\Keil\ARM\ARMCC\bin\..\include\string.h
+.\obj\iap.o: E:\MDK_KEIL4.74\ARM\ARMCC\bin\..\include\string.h
 .\obj\iap.o: ..\UsbLayer\usb_endp.h
 .\obj\iap.o: ..\user\delay.h
-.\obj\iap.o: D:\Keil\ARM\ARMCC\bin\..\include\stdio.h
+.\obj\iap.o: E:\MDK_KEIL4.74\ARM\ARMCC\bin\..\include\stdio.h

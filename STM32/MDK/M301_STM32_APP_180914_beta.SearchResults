@@ -1,0 +1,24 @@
+---- ENC_KEY.temp.encway Matches (22 in 2 files) ----
+App.c (c:\users\allen\desktop\stm32_app - 18-06-21_f1\stm32_app - 18-06-21\发给客户的stm32_app\m301_stm32_app_180914_release\m301_stm32_app_180914_beta\user):	ENC_KEY.temp.encway = 0x31;			//默认DES加密
+App.c (c:\users\allen\desktop\stm32_app - 18-06-21_f1\stm32_app - 18-06-21\发给客户的stm32_app\m301_stm32_app_180914_release\m301_stm32_app_180914_beta\user):			  TxdBuf[i++]=ENC_KEY.temp.encway;
+App.c (c:\users\allen\desktop\stm32_app - 18-06-21_f1\stm32_app - 18-06-21\发给客户的stm32_app\m301_stm32_app_180914_release\m301_stm32_app_180914_beta\user)://		 ENC_KEY.temp.encway=0x31 ;
+App.c (c:\users\allen\desktop\stm32_app - 18-06-21_f1\stm32_app - 18-06-21\发给客户的stm32_app\m301_stm32_app_180914_release\m301_stm32_app_180914_beta\user):		if(0x31 == ENC_KEY.temp.encway)					//three DES加密 
+App.c (c:\users\allen\desktop\stm32_app - 18-06-21_f1\stm32_app - 18-06-21\发给客户的stm32_app\m301_stm32_app_180914_release\m301_stm32_app_180914_beta\user):		TxdBuf[i++]=ENC_KEY.temp.encway;
+App.c (c:\users\allen\desktop\stm32_app - 18-06-21_f1\stm32_app - 18-06-21\发给客户的stm32_app\m301_stm32_app_180914_release\m301_stm32_app_180914_beta\user):		TxdBuf[i++]=ENC_KEY.temp.encway;
+App.c (c:\users\allen\desktop\stm32_app - 18-06-21_f1\stm32_app - 18-06-21\发给客户的stm32_app\m301_stm32_app_180914_release\m301_stm32_app_180914_beta\user):		TxdBuf[i++]=ENC_KEY.temp.encway;
+App.c (c:\users\allen\desktop\stm32_app - 18-06-21_f1\stm32_app - 18-06-21\发给客户的stm32_app\m301_stm32_app_180914_release\m301_stm32_app_180914_beta\user):				if(0x32 == ENC_KEY.temp.encway)							//如果AES加密则每块16字节 
+App.c (c:\users\allen\desktop\stm32_app - 18-06-21_f1\stm32_app - 18-06-21\发给客户的stm32_app\m301_stm32_app_180914_release\m301_stm32_app_180914_beta\user):					if (0x31 == ENC_KEY.temp.encway)				   		//DES加密
+App.c (c:\users\allen\desktop\stm32_app - 18-06-21_f1\stm32_app - 18-06-21\发给客户的stm32_app\m301_stm32_app_180914_release\m301_stm32_app_180914_beta\user):					if (0x32 == ENC_KEY.temp.encway)				   		////AES加密加密
+App.c (c:\users\allen\desktop\stm32_app - 18-06-21_f1\stm32_app - 18-06-21\发给客户的stm32_app\m301_stm32_app_180914_release\m301_stm32_app_180914_beta\user)://						ENC_KEY.temp.encway = 0x00;			//默认DES加密
+App.c (c:\users\allen\desktop\stm32_app - 18-06-21_f1\stm32_app - 18-06-21\发给客户的stm32_app\m301_stm32_app_180914_release\m301_stm32_app_180914_beta\user):									ENC_KEY.temp.encway = RxdBuf[4];//读取设置的加密类型   
+App.c (c:\users\allen\desktop\stm32_app - 18-06-21_f1\stm32_app - 18-06-21\发给客户的stm32_app\m301_stm32_app_180914_release\m301_stm32_app_180914_beta\user):								ENC_KEY.temp.encway = RxdBuf[4];//读取设置的加密类型   
+App.c (c:\users\allen\desktop\stm32_app - 18-06-21_f1\stm32_app - 18-06-21\发给客户的stm32_app\m301_stm32_app_180914_release\m301_stm32_app_180914_beta\user)://								printf("ENC_KEY.temp.encwayccf %d\r\n",ENC_KEY.temp.encway);
+Dev_msread.c (c:\users\allen\desktop\stm32_app - 18-06-21_f1\stm32_app - 18-06-21\发给客户的stm32_app\m301_stm32_app_180914_release\m301_stm32_app_180914_beta\dev)://		printf("ENC_KEY.temp.encway===1\r\n");		
+Dev_msread.c (c:\users\allen\desktop\stm32_app - 18-06-21_f1\stm32_app - 18-06-21\发给客户的stm32_app\m301_stm32_app_180914_release\m301_stm32_app_180914_beta\dev):		if(0x32 == ENC_KEY.temp.encway)							//如果AES加密则每块16字节 
+Dev_msread.c (c:\users\allen\desktop\stm32_app - 18-06-21_f1\stm32_app - 18-06-21\发给客户的stm32_app\m301_stm32_app_180914_release\m301_stm32_app_180914_beta\dev):		printf("ENC_KEY.temp.encway=%x\r\n",ENC_KEY.temp.encway);
+Dev_msread.c (c:\users\allen\desktop\stm32_app - 18-06-21_f1\stm32_app - 18-06-21\发给客户的stm32_app\m301_stm32_app_180914_release\m301_stm32_app_180914_beta\dev):		if( 0x30 == ENC_KEY.temp.encway)						//DES加密
+Dev_msread.c (c:\users\allen\desktop\stm32_app - 18-06-21_f1\stm32_app - 18-06-21\发给客户的stm32_app\m301_stm32_app_180914_release\m301_stm32_app_180914_beta\dev):		else if(0x31 == ENC_KEY.temp.encway)					//three DES加密 
+Dev_msread.c (c:\users\allen\desktop\stm32_app - 18-06-21_f1\stm32_app - 18-06-21\发给客户的stm32_app\m301_stm32_app_180914_release\m301_stm32_app_180914_beta\dev):		else if(0x32 == ENC_KEY.temp.encway)					//AES加密
+---- ENC_KEY.temp.encway Search Errors Encountered (1) ----
+The following 1 files could not be processed:
+C:\Users\Allen\Desktop\STM32_APP - 18-06-21_F1\STM32_APP - 18-06-21\发给客户的STM32_APP\M301_STM32_APP_180914_Release\M301_STM32_APP_180914_beta\MDK\obj\Magcard.build_log.htm : File could not be opened.
